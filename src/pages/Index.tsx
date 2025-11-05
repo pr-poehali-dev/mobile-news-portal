@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Newspaper, Search, Home, FileText, Megaphone, Mail } from 'lucide-react';
+import { Newspaper, Search, Home, FileText, Megaphone, Mail, Briefcase } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -72,11 +72,32 @@ const mockNews: NewsArticle[] = [
     category: 'Транспорт',
     date: '2 ноября 2025',
     excerpt: 'Пять новых станций свяжут центр города с отдаленными районами, сократив время в пути на 30 минут.'
+  },
+  {
+    id: 9,
+    title: 'Городская поликлиника объявляет набор медсестёр',
+    category: 'Работа',
+    date: '5 ноября 2025',
+    excerpt: 'Требуются специалисты с опытом работы от 1 года. Официальное трудоустройство, соцпакет, зарплата от 45 000 рублей.'
+  },
+  {
+    id: 10,
+    title: 'IT-компания ищет frontend-разработчиков',
+    category: 'Работа',
+    date: '4 ноября 2025',
+    excerpt: 'Требуется знание React, TypeScript. Удалённая работа, гибкий график. Зарплата до 150 000 рублей.'
+  },
+  {
+    id: 11,
+    title: 'Требуются водители категории C, E',
+    category: 'Работа',
+    date: '3 ноября 2025',
+    excerpt: 'Работа на межгород, современная техника. Зарплата от 80 000 до 120 000 рублей в зависимости от опыта.'
   }
 ];
 
 const Index = () => {
-  const [currentSection, setCurrentSection] = useState<'home' | 'news' | 'announcements' | 'contacts'>('home');
+  const [currentSection, setCurrentSection] = useState<'home' | 'news' | 'announcements' | 'jobs' | 'contacts'>('home');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredNews = mockNews.filter(article => 
@@ -90,13 +111,13 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b-4 border-primary py-4 px-4 sticky top-0 bg-background z-50">
+      <header className="border-b-4 border-primary py-4 px-4 sticky top-0 bg-primary z-50">
         <div className="max-w-md mx-auto">
           <div className="flex items-center gap-3 mb-4">
-            <Newspaper className="w-8 h-8" />
+            <Newspaper className="w-8 h-8 text-primary-foreground" />
             <div>
-              <h1 className="font-serif text-2xl font-black tracking-tight">ГОРЛОВСКАЯ МОЗАИКА</h1>
-              <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Ежедневная газета</p>
+              <h1 className="font-serif text-2xl font-black tracking-tight text-primary-foreground">ГОРЛОВСКАЯ МОЗАИКА</h1>
+              <p className="text-[10px] text-primary-foreground/80 uppercase tracking-widest">Ежедневная газета</p>
             </div>
           </div>
           
@@ -105,7 +126,7 @@ const Index = () => {
             <Input 
               type="search"
               placeholder="Поиск новостей..."
-              className="pl-10 bg-secondary border-border"
+              className="pl-10 bg-white border-border"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -136,6 +157,13 @@ const Index = () => {
             >
               <Megaphone className="w-5 h-5" />
               <span className="text-xs font-semibold">Объявления</span>
+            </button>
+            <button 
+              onClick={() => setCurrentSection('jobs')}
+              className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors ${currentSection === 'jobs' ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Briefcase className="w-5 h-5" />
+              <span className="text-xs font-semibold">Работа</span>
             </button>
             <button 
               onClick={() => setCurrentSection('contacts')}
@@ -260,14 +288,6 @@ const Index = () => {
           <div className="space-y-6 animate-fade-in">
             <h2 className="font-serif text-2xl font-bold text-center mb-6">Объявления</h2>
             <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold mb-3">Требуется курьер</h3>
-              <p className="text-sm text-muted-foreground mb-2">Опубликовано: 4 ноября 2025</p>
-              <p className="text-sm leading-relaxed">
-                Активно развивающаяся компания приглашает на работу курьеров с личным автомобилем. 
-                График работы: 5/2, заработная плата от 60 000 рублей.
-              </p>
-            </Card>
-            <Card className="p-6">
               <h3 className="font-serif text-lg font-bold mb-3">Продам двухкомнатную квартиру</h3>
               <p className="text-sm text-muted-foreground mb-2">Опубликовано: 3 ноября 2025</p>
               <p className="text-sm leading-relaxed">
@@ -283,6 +303,28 @@ const Index = () => {
                 Индивидуальный подход, первое занятие бесплатно.
               </p>
             </Card>
+          </div>
+        )}
+
+        {currentSection === 'jobs' && (
+          <div className="space-y-6 animate-fade-in">
+            <h2 className="font-serif text-2xl font-bold text-center mb-6">Вакансии</h2>
+            {filteredNews.filter(article => article.category === 'Работа').map(article => (
+              <Card key={article.id} className="p-6">
+                <div className="flex items-start gap-2 mb-2">
+                  <Badge variant="secondary" className="text-[10px] uppercase tracking-wider bg-primary/10 text-primary">
+                    {article.category}
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">{article.date}</span>
+                </div>
+                <h3 className="font-serif text-xl font-bold mb-2 leading-tight">
+                  {article.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-foreground/90">
+                  {article.excerpt}
+                </p>
+              </Card>
+            ))}
           </div>
         )}
 
