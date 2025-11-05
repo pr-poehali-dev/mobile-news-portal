@@ -95,7 +95,7 @@ const Index = () => {
           <div className="flex items-center gap-3 mb-4">
             <Newspaper className="w-8 h-8" />
             <div>
-              <h1 className="font-serif text-2xl font-black tracking-tight">ВЕСТИ</h1>
+              <h1 className="font-serif text-2xl font-black tracking-tight">ГОРЛОВСКАЯ МОЗАИКА</h1>
               <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Ежедневная газета</p>
             </div>
           </div>
@@ -290,7 +290,7 @@ const Index = () => {
           <div className="space-y-6 animate-fade-in">
             <h2 className="font-serif text-2xl font-bold text-center mb-6">Контакты</h2>
             <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold mb-4">Редакция газеты «ВЕСТИ»</h3>
+              <h3 className="font-serif text-lg font-bold mb-4">Редакция газеты «ГОРЛОВСКАЯ МОЗАИКА»</h3>
               <div className="space-y-3 text-sm">
                 <div>
                   <p className="font-semibold mb-1">Адрес редакции:</p>
@@ -304,7 +304,7 @@ const Index = () => {
                 <Separator />
                 <div>
                   <p className="font-semibold mb-1">Email:</p>
-                  <p className="text-muted-foreground">redakciya@vesti-news.ru</p>
+                  <p className="text-muted-foreground">redakciya@mozaika-news.ru</p>
                 </div>
                 <Separator />
                 <div>
@@ -324,7 +324,7 @@ const Index = () => {
               <p className="text-sm text-muted-foreground mb-2">
                 По вопросам размещения рекламных материалов обращайтесь в отдел рекламы:
               </p>
-              <p className="text-sm">reklama@vesti-news.ru</p>
+              <p className="text-sm">reklama@mozaika-news.ru</p>
               <p className="text-sm">+7 (495) 123-45-68</p>
             </Card>
           </div>
@@ -335,7 +335,7 @@ const Index = () => {
         <div className="max-w-md mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Newspaper className="w-5 h-5" />
-            <p className="font-serif font-bold text-lg">ВЕСТИ</p>
+            <p className="font-serif font-bold text-lg">ГОРЛОВСКАЯ МОЗАИКА</p>
           </div>
           <p className="text-xs text-muted-foreground mb-2">
             Свидетельство о регистрации СМИ №123456 от 01.01.2020
