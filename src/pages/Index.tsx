@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Newspaper, Search, Home, FileText, Megaphone, Mail, Briefcase } from 'lucide-react';
+import { Newspaper, Search, Home, FileText, Megaphone, Mail, Briefcase, Phone, MapPin, Clock } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -337,46 +337,56 @@ const Index = () => {
         )}
 
         {currentSection === 'contacts' && (
-          <div className="space-y-6 animate-fade-in">
-            <h2 className="font-serif text-2xl font-bold text-center mb-6">Контакты</h2>
-            <Card className="p-6">
-              <h3 className="font-serif text-lg font-bold mb-4">Редакция газеты «ГОРЛОВСКАЯ МОЗАИКА»</h3>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <p className="font-semibold mb-1">Адрес редакции:</p>
-                  <p className="text-muted-foreground">125009, г. Москва, ул. Тверская, д. 18, офис 501</p>
+          <div className="space-y-4 animate-fade-in">
+            <div className="space-y-4">
+              <a href="tel:+74951234567" className="flex items-start gap-4 p-4 bg-card rounded-lg hover:bg-secondary/50 transition-colors">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Phone className="w-5 h-5 text-primary" />
                 </div>
-                <Separator />
-                <div>
-                  <p className="font-semibold mb-1">Телефон:</p>
-                  <p className="text-muted-foreground">+7 (495) 123-45-67</p>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground mb-1">Телефон</p>
+                  <p className="font-semibold">+7 (495) 123-45-67</p>
                 </div>
-                <Separator />
-                <div>
-                  <p className="font-semibold mb-1">Email:</p>
-                  <p className="text-muted-foreground">redakciya@mozaika-news.ru</p>
+              </a>
+
+              <a href="mailto:redakciya@mozaika-news.ru" className="flex items-start gap-4 p-4 bg-card rounded-lg hover:bg-secondary/50 transition-colors">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Mail className="w-5 h-5 text-primary" />
                 </div>
-                <Separator />
-                <div>
-                  <p className="font-semibold mb-1">График работы:</p>
-                  <p className="text-muted-foreground">Пн-Пт: 9:00 - 18:00</p>
-                  <p className="text-muted-foreground">Сб-Вс: выходной</p>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground mb-1">Email редакции</p>
+                  <p className="font-semibold text-sm">redakciya@mozaika-news.ru</p>
                 </div>
-                <Separator />
-                <div>
-                  <p className="font-semibold mb-1">Главный редактор:</p>
-                  <p className="text-muted-foreground">Иванова Мария Петровна</p>
+              </a>
+
+              <div className="flex items-start gap-4 p-4 bg-card rounded-lg">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground mb-1">Адрес</p>
+                  <p className="font-semibold text-sm">г. Москва, ул. Тверская, д. 18, офис 501</p>
                 </div>
               </div>
-            </Card>
-            <Card className="p-6 bg-secondary">
-              <h3 className="font-serif text-base font-bold mb-3">Размещение рекламы</h3>
-              <p className="text-sm text-muted-foreground mb-2">
-                По вопросам размещения рекламных материалов обращайтесь в отдел рекламы:
-              </p>
-              <p className="text-sm">reklama@mozaika-news.ru</p>
-              <p className="text-sm">+7 (495) 123-45-68</p>
-            </Card>
+
+              <div className="flex items-start gap-4 p-4 bg-card rounded-lg">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Clock className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground mb-1">График работы</p>
+                  <p className="font-semibold text-sm">Пн-Пт: 9:00 - 18:00</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4">
+              <p className="text-xs text-muted-foreground text-center mb-3">Реклама</p>
+              <a href="mailto:reklama@mozaika-news.ru" className="flex items-center justify-center gap-2 p-3 bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors">
+                <Mail className="w-4 h-4 text-primary" />
+                <span className="text-sm font-semibold">reklama@mozaika-news.ru</span>
+              </a>
+            </div>
           </div>
         )}
       </main>
