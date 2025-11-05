@@ -93,6 +93,27 @@ const mockNews: NewsArticle[] = [
     category: 'Работа',
     date: '3 ноября 2025',
     excerpt: 'Работа на межгород, современная техника. Зарплата от 80 000 до 120 000 рублей в зависимости от опыта.'
+  },
+  {
+    id: 12,
+    title: 'Ищу работу бухгалтера',
+    category: 'Резюме',
+    date: '5 ноября 2025',
+    excerpt: 'Опыт работы 7 лет. Знание 1С, бухгалтерский учёт, налоговая отчётность. Рассмотрю все предложения.'
+  },
+  {
+    id: 13,
+    title: 'Продавец-консультант в поисках работы',
+    category: 'Резюме',
+    date: '4 ноября 2025',
+    excerpt: 'Девушка, 24 года. Опыт работы в розничной торговле 3 года. Коммуникабельность, знание кассовой программы.'
+  },
+  {
+    id: 14,
+    title: 'Строитель-универсал ищет работу',
+    category: 'Резюме',
+    date: '3 ноября 2025',
+    excerpt: 'Выполнение отделочных и общестроительных работ. 12 лет опыта. Есть инструмент, готов к командировкам.'
   }
 ];
 
@@ -100,6 +121,7 @@ const Index = () => {
   const [currentSection, setCurrentSection] = useState<'home' | 'news' | 'announcements' | 'jobs' | 'contacts'>('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [jobsTab, setJobsTab] = useState<'vacancies' | 'resumes'>('vacancies');
 
   const filteredNews = mockNews.filter(article => 
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -316,23 +338,70 @@ const Index = () => {
 
         {currentSection === 'jobs' && (
           <div className="space-y-6 animate-fade-in">
-            <h2 className="font-serif text-2xl font-bold text-center mb-6">Вакансии</h2>
-            {filteredNews.filter(article => article.category === 'Работа').map(article => (
-              <Card key={article.id} className="p-6">
-                <div className="flex items-start gap-2 mb-2">
-                  <Badge variant="secondary" className="text-[10px] uppercase tracking-wider bg-primary/10 text-primary">
-                    {article.category}
-                  </Badge>
-                  <span className="text-xs text-muted-foreground">{article.date}</span>
-                </div>
-                <h3 className="font-serif text-xl font-bold mb-2 leading-tight">
-                  {article.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-foreground/90">
-                  {article.excerpt}
-                </p>
-              </Card>
-            ))}
+            <div className="flex gap-2 p-1 bg-secondary rounded-lg">
+              <button
+                onClick={() => setJobsTab('vacancies')}
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-all ${
+                  jobsTab === 'vacancies'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Вакансии
+              </button>
+              <button
+                onClick={() => setJobsTab('resumes')}
+                className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-all ${
+                  jobsTab === 'resumes'
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Резюме
+              </button>
+            </div>
+
+            {jobsTab === 'vacancies' && (
+              <div className="space-y-4">
+                {filteredNews.filter(article => article.category === 'Работа').map(article => (
+                  <Card key={article.id} className="p-5 hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-2 mb-2">
+                      <Badge variant="secondary" className="text-[10px] uppercase tracking-wider bg-primary/10 text-primary">
+                        Вакансия
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{article.date}</span>
+                    </div>
+                    <h3 className="font-serif text-lg font-bold mb-2 leading-tight">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-foreground/80">
+                      {article.excerpt}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            )}
+
+            {jobsTab === 'resumes' && (
+              <div className="space-y-4">
+                {filteredNews.filter(article => article.category === 'Резюме').map(article => (
+                  <Card key={article.id} className="p-5 hover:shadow-md transition-shadow">
+                    <div className="flex items-start gap-2 mb-2">
+                      <Badge variant="outline" className="text-[10px] uppercase tracking-wider border-primary text-primary">
+                        Резюме
+                      </Badge>
+                      <span className="text-xs text-muted-foreground">{article.date}</span>
+                    </div>
+                    <h3 className="font-serif text-lg font-bold mb-2 leading-tight">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-foreground/80">
+                      {article.excerpt}
+                    </p>
+                  </Card>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
