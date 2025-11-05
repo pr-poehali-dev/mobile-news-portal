@@ -99,6 +99,7 @@ const mockNews: NewsArticle[] = [
 const Index = () => {
   const [currentSection, setCurrentSection] = useState<'home' | 'news' | 'announcements' | 'jobs' | 'contacts'>('home');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const filteredNews = mockNews.filter(article => 
     article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -113,24 +114,37 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b-4 border-primary py-4 px-4 sticky top-0 bg-primary z-50">
         <div className="max-w-md mx-auto">
-          <div className="flex items-center gap-3 mb-4">
-            <Newspaper className="w-8 h-8 text-primary-foreground" />
-            <div>
-              <h1 className="font-serif text-2xl font-black tracking-tight text-primary-foreground">ГОРЛОВСКАЯ МОЗАИКА</h1>
-              <p className="text-[10px] text-primary-foreground/80 uppercase tracking-widest">Ежедневная газета</p>
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <Newspaper className="w-8 h-8 text-primary-foreground" />
+              <div>
+                <h1 className="font-serif text-xl font-black tracking-tight text-primary-foreground">ГОРЛОВСКАЯ МОЗАИКА</h1>
+              </div>
             </div>
+            <button 
+              onClick={() => {
+                setIsSearchOpen(!isSearchOpen);
+                if (isSearchOpen) setSearchQuery('');
+              }}
+              className="p-2 hover:bg-primary-foreground/10 rounded-full transition-colors"
+              aria-label="Поиск"
+            >
+              <Search className="w-5 h-5 text-primary-foreground" />
+            </button>
           </div>
           
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input 
-              type="search"
-              placeholder="Поиск новостей..."
-              className="pl-10 bg-white border-border"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+          {isSearchOpen && (
+            <div className="relative mt-3">
+              <Input 
+                type="search"
+                placeholder="Поиск..."
+                className="bg-white border-0 text-sm"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                autoFocus
+              />
+            </div>
+          )}
         </div>
       </header>
 
@@ -179,12 +193,6 @@ const Index = () => {
       <main className="max-w-md mx-auto px-4 py-6">
         {currentSection === 'home' && (
           <div className="space-y-6 animate-fade-in">
-            <div className="text-center py-2">
-              <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                Выпуск от {new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </p>
-            </div>
-
             {searchQuery && (
               <div className="text-sm text-muted-foreground">
                 Найдено материалов: {filteredNews.length}
